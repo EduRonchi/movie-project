@@ -2,7 +2,9 @@ package com.eduronchi.movieproject.controller;
 
 import com.eduronchi.movieproject.dto.MovieDTO;
 import com.eduronchi.movieproject.entities.Movie;
+import com.eduronchi.movieproject.exceptions.ResourceNotFoundException;
 import com.eduronchi.movieproject.services.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +32,14 @@ public class MovieController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Movie> findById(@PathVariable Long id) {
-        return movieService.findById(id);
+    public Movie findById(@PathVariable Long id) {
+        return getMovieById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Movie save(@RequestBody Movie Movie) {
-        return movieService.save(Movie);
+    public Movie save(@Valid @RequestBody Movie movie) {
+        return movieService.save(movie);
     }
 
     @PutMapping("/{id}")
@@ -50,7 +52,13 @@ public class MovieController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
+        Movie movie = getMovieById(id);
         movieService.deleteById(id);
+    }
+
+    private Movie getMovieById(Long id) {
+        Optional<Movie> movie = movieService.findById(id);
+        return movie.orElseThrow(() -> new ResourceNotFoundException("Movie not found with ID: " + id));
     }
 
     private String capitalizeFirstLetter(String input) {
