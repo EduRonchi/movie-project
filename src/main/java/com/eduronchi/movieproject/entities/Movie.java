@@ -1,5 +1,6 @@
 package com.eduronchi.movieproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Movie {
     private String description;
 
     @ManyToMany
+    @JsonIgnore
     private List<Genre> genres;
 
 }

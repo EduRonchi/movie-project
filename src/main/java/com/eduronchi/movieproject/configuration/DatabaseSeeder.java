@@ -30,7 +30,7 @@ public class DatabaseSeeder {
             genreRepository.save(dramaGenre);
 
             Genre comedyGenre = new Genre();
-            comedyGenre.setName("Comédia");
+            comedyGenre.setName("Comedy");
             genreRepository.save(comedyGenre);
 
             Genre actionGenre = new Genre();
@@ -69,7 +69,7 @@ public class DatabaseSeeder {
             anjosDaLei.setName("Anjos da Lei");
             anjosDaLei.setActors("Jonah Hill, Channing Tatum");
             anjosDaLei.setDirector("Phil Lord, Chris Miller");
-            anjosDaLei.setGenre("Ação");
+            anjosDaLei.setGenre("Action");
             anjosDaLei.setReleaseDate(LocalDate.of(2012, 3, 16));
             anjosDaLei.setDescription("Two unlikely police officers go undercover as high school students.");
             anjosDaLei.setGenres(Arrays.asList(actionGenre));
@@ -89,7 +89,7 @@ public class DatabaseSeeder {
             harryPotter.setName("Harry Potter e a Pedra Filosofal");
             harryPotter.setActors("Daniel Radcliffe, Emma Watson");
             harryPotter.setDirector("Chris Columbus");
-            harryPotter.setGenre("Aventura");
+            harryPotter.setGenre("Adventure");
             harryPotter.setReleaseDate(LocalDate.of(2001, 11, 16));
             harryPotter.setDescription("Rescued from the outrageous neglect of his aunt and uncle, a young boy with a great destiny proves his worth while attending Hogwarts School of Witchcraft and Wizardry.");
             harryPotter.setGenres(Arrays.asList(adventureGenre));
@@ -99,7 +99,7 @@ public class DatabaseSeeder {
             piratasDoCaribe.setName("Piratas do Caribe: A Maldição do Pérola Negra");
             piratasDoCaribe.setActors("Johnny Depp, Geoffrey Rush");
             piratasDoCaribe.setDirector("Gore Verbinski");
-            piratasDoCaribe.setGenre("Aventura");
+            piratasDoCaribe.setGenre("Adventure");
             piratasDoCaribe.setReleaseDate(LocalDate.of(2003, 7, 9));
             piratasDoCaribe.setDescription("Blacksmith Will Turner teams up with eccentric pirate Captain Jack Sparrow to save his love, the governor's daughter, from Jack's former pirate allies, who are now undead.");
             piratasDoCaribe.setGenres(Arrays.asList(adventureGenre));
