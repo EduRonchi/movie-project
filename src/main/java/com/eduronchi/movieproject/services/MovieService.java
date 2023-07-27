@@ -5,10 +5,10 @@ import com.eduronchi.movieproject.entities.Movie;
 import com.eduronchi.movieproject.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,18 +17,22 @@ public class MovieService {
     @Autowired
     private  MovieRepository movieRepository;
 
-    public List<MovieDTO> findAll() {
-        List<Movie> result = movieRepository.findAll();
-        return result.stream().map(MovieDTO::new).toList();
+    public Page<MovieDTO> findAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Movie> result = movieRepository.findAll(pageRequest);
+        return result.map(MovieDTO::new);
     }
 
-    public List<MovieDTO> findByGenre(String genreName) {
-        List<Movie> result = movieRepository.findByGenre(genreName);
-        return result.stream().map(MovieDTO::new).toList();
+    public Page<MovieDTO> findByGenre(String genreName, int page, int size) {
+        String genreNameCapitalized = capitalizeFirstLetter(genreName);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<Movie> result = movieRepository.findByGenre(genreNameCapitalized, pageRequest);
+        return result.map(MovieDTO::new);
     }
 
-    public List<Movie> searchMoviesByExample(Example<Movie> example) {
-        return movieRepository.findAll(example);
+    public Page<Movie> searchMoviesByExample(Example<Movie> example, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return movieRepository.findAll(example, pageRequest);
     }
 
     public Movie save(Movie movie){
@@ -43,4 +47,11 @@ public class MovieService {
         movieRepository.deleteById(id);
     }
 
+    private String capitalizeFirstLetter(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        } else {
+            return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+        }
+    }
 }

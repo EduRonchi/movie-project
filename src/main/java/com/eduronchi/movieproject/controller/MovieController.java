@@ -8,13 +8,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/movies")
@@ -24,32 +22,41 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping
-    public List<MovieDTO> findAll() {
-        return movieService.findAll();
+    public Page<MovieDTO> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return movieService.findAll(page, size);
     }
 
     @GetMapping("/genre/{genreName}")
-    public List<MovieDTO> findByGenre(@PathVariable String genreName) {
+    public Page<MovieDTO> findByGenre(
+            @PathVariable String genreName,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
         String genreNameCapitalized = capitalizeFirstLetter(genreName);
-        return movieService.findByGenre(genreNameCapitalized);
+        return movieService.findByGenre(genreNameCapitalized, page, size);
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public Movie findById(@PathVariable Long id) {
         return getMovieById(id);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Movie>> searchMoviesByExample(Movie filter) {
+    public Page<Movie> searchMoviesByExample(Movie filter,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(defaultValue = "10") int size
+    ) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
         Example<Movie> example = Example.of(filter, matcher);
-        List<Movie> movieList = movieService.searchMoviesByExample(example);
-        return ResponseEntity.ok(movieList);
+        Page<Movie> moviePage = movieService.searchMoviesByExample(example, page, size);
+        return moviePage;
     }
 
     @PostMapping
