@@ -1,4 +1,4 @@
-package com.eduronchi.movieproject.controller;
+package com.eduronchi.movieproject.tests;
 
 import com.eduronchi.movieproject.infra.security.TokenService;
 import com.eduronchi.movieproject.repositories.UserRepository;

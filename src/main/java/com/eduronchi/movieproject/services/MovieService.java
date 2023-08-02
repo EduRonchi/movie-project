@@ -14,8 +14,12 @@ import java.util.Optional;
 @Service
 public class MovieService {
 
+    private final MovieRepository movieRepository;
+
     @Autowired
-    private  MovieRepository movieRepository;
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     public Page<MovieDTO> findAll(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -36,6 +40,10 @@ public class MovieService {
     }
 
     public Movie save(Movie movie){
+        if (movieRepository.existsByName(movie.getName())) {
+            throw new IllegalArgumentException("A movie with the same name already exists.");
+        }
+
         return movieRepository.save(movie);
     }
 

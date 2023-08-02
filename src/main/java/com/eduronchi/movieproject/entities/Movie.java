@@ -36,4 +36,6 @@ public class Movie {
     @JsonIgnore
     private List<Genre> genres;
 
+    public Movie(long l, String s, String action, String s1) {
+    }
 }

@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     Page<Movie> findByGenre(String genre, Pageable pageable);
+
+    boolean existsByName(String name);
 }

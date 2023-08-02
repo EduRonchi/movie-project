@@ -1,4 +1,4 @@
-package com.eduronchi.movieproject.controller;
+package com.eduronchi.movieproject.tests;
 
 import com.eduronchi.movieproject.dto.MovieDTO;
 import com.eduronchi.movieproject.entities.Movie;
