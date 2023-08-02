@@ -1,4 +1,4 @@
-package com.eduronchi.movieproject.tests;
+package com.eduronchi.movieproject.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

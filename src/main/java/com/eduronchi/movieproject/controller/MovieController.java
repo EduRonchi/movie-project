@@ -1,4 +1,4 @@
-package com.eduronchi.movieproject.tests;
+package com.eduronchi.movieproject.controller;
 
 import com.eduronchi.movieproject.dto.MovieDTO;
 import com.eduronchi.movieproject.entities.Movie;
@@ -67,7 +67,7 @@ public class MovieController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Movie update (@PathVariable Long id, @RequestBody Movie update) {
+    public Movie update(@PathVariable Long id, @RequestBody Movie update) {
         update.setId(id);
         return movieService.save(update);
     }

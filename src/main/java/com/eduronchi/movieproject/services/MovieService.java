@@ -39,7 +39,7 @@ public class MovieService {
         return movieRepository.findAll(example, pageRequest);
     }
 
-    public Movie save(Movie movie){
+    public Movie save(Movie movie) {
         if (movieRepository.existsByName(movie.getName())) {
             throw new IllegalArgumentException("A movie with the same name already exists.");
         }
@@ -51,7 +51,7 @@ public class MovieService {
         return movieRepository.findById(id);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         movieRepository.deleteById(id);
     }
 

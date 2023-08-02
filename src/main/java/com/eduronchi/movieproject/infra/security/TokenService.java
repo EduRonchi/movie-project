@@ -31,7 +31,7 @@ public class TokenService {
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Error while generating token", exception);
         }
-        }
+    }
 
     public String validateToken(String token) {
         try {
@@ -46,8 +46,8 @@ public class TokenService {
         }
     }
 
-        private Instant genExpirationDate() {
-            return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
-        }
+    private Instant genExpirationDate() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
 }
 
